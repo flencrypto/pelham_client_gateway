@@ -3,9 +3,9 @@ import { LayoutGrid, FolderOpen, Users, Settings, LogOut, Bell } from 'lucide-re
 
 const navItems = [
   { label: 'Overview', href: '/admin', icon: LayoutGrid },
-  { label: 'Projects', href: '/admin/projects', icon: FolderOpen },
-  { label: 'Clients', href: '/admin/clients', icon: Users },
-  { label: 'Settings', href: '/admin/settings', icon: Settings },
+  { label: 'Projects', href: '/admin?section=projects', icon: FolderOpen },
+  { label: 'Clients', href: '/admin?section=clients', icon: Users },
+  { label: 'Settings', href: '/admin?section=settings', icon: Settings },
 ]
 
 interface AdminShellProps {
