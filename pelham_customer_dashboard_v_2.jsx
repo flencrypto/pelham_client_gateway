@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from "react";
+import Image from "next/image";
 import {
   ArrowRight,
   BarChart3,
@@ -172,12 +173,11 @@ const processSteps = [
   "Hand-Over & Support",
 ];
 
-function iconForSector(sector) {
-  if (sector === "Retail") return Store;
-  if (sector === "Industrial") return Factory;
-  if (sector === "Leisure") return Dumbbell;
-  return Briefcase;
-}
+const SECTOR_ICONS = {
+  Retail: Store,
+  Industrial: Factory,
+  Leisure: Dumbbell,
+};
 
 function StatCard({ value, label }) {
   return (
@@ -247,7 +247,7 @@ function Hero() {
             Explore projects, sectors, delivery strengths and design capability in one place.
           </h2>
           <p className="mt-4 max-w-2xl text-base leading-7 text-white/70 md:text-lg">
-            A polished customer dashboard concept inspired by Pelham's brochure and website aesthetic, helping prospects understand what Pelham does and where Pelham excels.
+            A polished customer dashboard concept inspired by Pelham&apos;s brochure and website aesthetic, helping prospects understand what Pelham does and where Pelham excels.
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
             <button className="inline-flex items-center gap-2 rounded-2xl bg-lime-400 px-5 py-3 font-medium text-[#20231f]">
@@ -261,7 +261,7 @@ function Hero() {
       </div>
 
       <div className="relative overflow-hidden rounded-[28px] border border-white/10 bg-black/20">
-        <img src={welcomeScreenImage} alt="Pelham welcome screen" className="h-full min-h-[320px] w-full object-cover" />
+        <Image src={welcomeScreenImage} alt="Pelham welcome screen" fill className="min-h-[320px] object-cover" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
         <div className="absolute inset-x-0 bottom-0 p-6">
           <div className="rounded-[22px] border border-white/10 bg-black/30 p-5 backdrop-blur-md">
@@ -327,14 +327,14 @@ function Metric({ icon: Icon, label, value }) {
 }
 
 function ProjectCard({ project, onOpen }) {
-  const Icon = iconForSector(project.sector);
+  const Icon = SECTOR_ICONS[project.sector] ?? Briefcase;
   return (
     <button
       onClick={() => onOpen(project)}
       className="group overflow-hidden rounded-[28px] border border-white/10 bg-white/5 text-left transition hover:-translate-y-1 hover:border-lime-300/30 hover:bg-white/[0.06]"
     >
       <div className="relative h-64 overflow-hidden">
-        <img src={project.image} alt={project.title} className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]" />
+        <Image src={project.image} alt={project.title} fill className="object-cover transition duration-500 group-hover:scale-[1.03]" />
         <div className="absolute inset-0 bg-gradient-to-t from-[#17191b] via-transparent to-transparent" />
         <div className="absolute left-4 top-4 inline-flex items-center gap-2 rounded-full border border-white/10 bg-black/30 px-3 py-1 text-xs uppercase tracking-[0.2em] text-white/80 backdrop-blur-md">
           <Icon className="h-3.5 w-3.5" />
@@ -497,8 +497,8 @@ function ProjectModal({ project, onClose }) {
               ))}
             </div>
           </div>
-          <div className="min-h-[320px] border-t border-white/10 md:border-l md:border-t-0">
-            <img src={project.image} alt={project.title} className="h-full w-full object-cover" />
+          <div className="relative min-h-[320px] border-t border-white/10 md:border-l md:border-t-0">
+            <Image src={project.image} alt={project.title} fill className="object-cover" />
           </div>
         </div>
       </div>
