@@ -11,7 +11,7 @@ export default function FeaturedProject() {
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="flex items-end justify-between mb-12">
           <div>
-            <p className="text-xs font-semibold tracking-widest uppercase text-[var(--color-accent)] mb-3">
+            <p className="text-[10px] font-semibold tracking-[0.3em] uppercase text-[var(--color-text-muted)] mb-3">
               Featured Project
             </p>
             <h2 className="font-serif text-3xl lg:text-4xl font-medium text-[var(--color-text-primary)]">

@@ -12,7 +12,7 @@ export default function StatusBadge({ status, sector, className }: StatusBadgePr
     return (
       <span className={cn(
         'inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium',
-        'bg-[var(--color-accent-soft)] text-[var(--color-accent)] border border-[rgba(163,230,53,0.2)]',
+        'bg-[rgba(255,255,255,0.06)] text-[var(--color-text-secondary)] border border-[var(--color-border-subtle)]',
         className
       )}>
         {sector}

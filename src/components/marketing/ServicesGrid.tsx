@@ -35,7 +35,7 @@ export default function ServicesGrid() {
                 <div className="w-10 h-10 rounded-xl bg-[var(--color-accent-soft)] flex items-center justify-center mb-5">
                   <Icon size={18} className="text-[var(--color-accent)]" />
                 </div>
-                <h3 className="font-medium text-[var(--color-text-primary)] mb-3 group-hover:text-[var(--color-accent)] transition-colors">
+                <h3 className="font-medium text-[var(--color-text-primary)] mb-3">
                   {service.title}
                 </h3>
                 <p className="text-sm text-[var(--color-text-secondary)] leading-relaxed">

@@ -15,7 +15,7 @@ export default function CTASection() {
             }}
           />
           <div className="relative">
-            <p className="text-xs font-semibold tracking-widest uppercase text-[var(--color-accent)] mb-4">
+            <p className="text-xs font-semibold tracking-widest uppercase text-[var(--color-text-muted)] mb-4">
               Begin the Conversation
             </p>
             <h2 className="font-serif text-4xl lg:text-5xl font-medium text-[var(--color-text-primary)] mb-6 max-w-2xl mx-auto leading-tight">
@@ -27,7 +27,7 @@ export default function CTASection() {
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <a
                 href="mailto:studio@pelhaminteriors.com"
-                className="group inline-flex items-center gap-2 px-7 py-4 rounded-xl bg-[var(--color-accent)] text-charcoal-950 text-sm font-semibold tracking-wide hover:bg-lime-300 transition-all duration-200 shadow-lime-glow"
+                className="group inline-flex items-center gap-2 px-7 py-4 rounded-xl bg-white text-charcoal-950 text-sm font-semibold tracking-wide hover:bg-zinc-100 transition-all duration-200 shadow-[0_2px_20px_rgba(255,255,255,0.1)]"
               >
                 Request a Consultation
                 <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />

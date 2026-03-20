@@ -40,38 +40,44 @@ export default function MarketingHero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         >
-          <div className="flex items-center justify-center gap-3 mb-8">
-            <div className="w-8 h-px bg-[var(--color-accent)]" />
-            <p className="text-xs font-semibold tracking-[0.3em] uppercase text-[var(--color-accent)]">
+          <div className="flex items-center justify-center gap-3 mb-10">
+            <div className="w-8 h-px bg-[var(--color-border-strong)]" />
+            <p className="text-[10px] font-semibold tracking-[0.35em] uppercase text-[var(--color-text-muted)]">
               Pelham Interiors
             </p>
-            <div className="w-8 h-px bg-[var(--color-accent)]" />
+            <div className="w-8 h-px bg-[var(--color-border-strong)]" />
           </div>
 
           <h1 className="font-serif font-medium leading-[1.05] mb-6">
             <span className="block text-5xl sm:text-6xl lg:text-8xl text-[var(--color-text-primary)]">
               Spaces That Define
             </span>
-            <span className="block text-5xl sm:text-6xl lg:text-8xl text-[var(--color-accent)]">
+            <span className="block text-5xl sm:text-6xl lg:text-8xl text-[var(--color-text-primary)] italic">
               A Legacy
             </span>
           </h1>
 
-          <p className="mt-6 text-lg text-[var(--color-text-secondary)] max-w-xl mx-auto leading-relaxed">
+          <div className="flex items-center justify-center gap-3 mt-8 mb-2">
+            <div className="w-12 h-px bg-[var(--color-border-strong)]" />
+            <div className="w-1.5 h-1.5 rounded-full bg-[var(--color-accent)]" />
+            <div className="w-12 h-px bg-[var(--color-border-strong)]" />
+          </div>
+
+          <p className="mt-6 text-base text-[var(--color-text-secondary)] max-w-lg mx-auto leading-relaxed">
             Premium commercial interiors for London&apos;s most distinguished addresses. Residential, hospitality, and workplace environments of lasting quality.
           </p>
 
           <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
             <a
               href="#projects"
-              className="group inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-[var(--color-accent)] text-charcoal-950 text-sm font-semibold tracking-wide hover:bg-lime-300 transition-all duration-200 shadow-lime-glow"
+              className="group inline-flex items-center gap-2 px-7 py-3.5 rounded-xl bg-white text-charcoal-950 text-sm font-semibold tracking-wide hover:bg-zinc-100 transition-all duration-200 shadow-[0_2px_20px_rgba(255,255,255,0.08)]"
             >
               View Our Work
-              <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+              <ArrowRight size={15} className="group-hover:translate-x-1 transition-transform" />
             </a>
             <Link
               href="/portal"
-              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl border border-[var(--color-border-strong)] text-[var(--color-text-secondary)] text-sm font-semibold tracking-wide hover:border-[var(--color-border-strong)] hover:text-[var(--color-text-primary)] transition-all duration-200 bg-[rgba(255,255,255,0.03)]"
+              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl border border-[var(--color-border-strong)] text-[var(--color-text-secondary)] text-sm font-semibold tracking-wide hover:border-[rgba(255,255,255,0.2)] hover:text-[var(--color-text-primary)] transition-all duration-200"
             >
               Client Portal
             </Link>

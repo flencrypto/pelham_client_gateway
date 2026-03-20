@@ -58,7 +58,7 @@ export default function PublicHeader() {
           <div className="flex items-center gap-4">
             <Link
               href="/portal"
-              className="hidden lg:inline-flex items-center px-4 py-2 rounded-lg text-xs font-semibold tracking-wider uppercase bg-[var(--color-accent)] text-charcoal-950 hover:bg-lime-300 transition-colors duration-200"
+              className="hidden lg:inline-flex items-center px-4 py-2 rounded-lg text-xs font-semibold tracking-wider uppercase border border-[var(--color-border-strong)] text-[var(--color-text-primary)] hover:border-[rgba(255,255,255,0.25)] hover:bg-[rgba(255,255,255,0.04)] transition-all duration-200"
             >
               Client Portal
             </Link>
@@ -89,7 +89,7 @@ export default function PublicHeader() {
             <Link
               href="/portal"
               onClick={() => setMobileOpen(false)}
-              className="inline-flex items-center justify-center px-4 py-3 rounded-lg text-xs font-semibold tracking-wider uppercase bg-[var(--color-accent)] text-charcoal-950"
+              className="inline-flex items-center justify-center px-4 py-3 rounded-lg text-xs font-semibold tracking-wider uppercase border border-[var(--color-border-strong)] text-[var(--color-text-primary)]"
             >
               Client Portal
             </Link>

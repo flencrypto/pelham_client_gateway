@@ -32,7 +32,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
         </div>
 
         <div>
-          <h3 className="font-medium text-[var(--color-text-primary)] text-sm leading-snug group-hover:text-[var(--color-accent)] transition-colors duration-200">
+          <h3 className="font-medium text-[var(--color-text-primary)] text-sm leading-snug group-hover:text-white transition-colors duration-200">
             {project.name}
           </h3>
           <div className="flex items-center gap-1.5 mt-1.5">

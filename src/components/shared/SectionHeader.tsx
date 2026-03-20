@@ -12,7 +12,7 @@ export default function SectionHeader({ eyebrow, title, subtitle, centered = fal
   return (
     <div className={cn(centered && 'text-center', className)}>
       {eyebrow && (
-        <p className="text-xs font-semibold tracking-widest uppercase text-[var(--color-accent)] mb-3">
+        <p className="text-[10px] font-semibold tracking-[0.3em] uppercase text-[var(--color-text-muted)] mb-3">
           {eyebrow}
         </p>
       )}
