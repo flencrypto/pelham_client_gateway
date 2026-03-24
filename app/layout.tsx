@@ -13,9 +13,9 @@ const geistSansFont = Geist({
 });
 
 export const metadata: Metadata = {
-  title: "Pelham Interiors — Premium Interior Design & Fit-Out",
+  title: "Pelham Client Gateway",
   description:
-    "Pelham Interiors delivers exceptional interior design, workplace strategy and fit-out services across commercial, hospitality, retail, healthcare, education and residential sectors.",
+    "The Pelham Client Gateway — your secure portal for real-time project progress, compliance documentation and billing information.",
 };
 
 export default function RootLayout({
