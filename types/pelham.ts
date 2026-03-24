@@ -114,3 +114,136 @@ export interface BusinessMetric {
   metricDisplayValue: string;
   metricSubtitle: string;
 }
+
+// ---------------------------------------------------------------------------
+// Photo management
+// ---------------------------------------------------------------------------
+
+/** A site or project photo, optionally grouped into an album. */
+export interface ProjectPhoto {
+  photoId: string;
+  imageUrl: string;
+  caption: string;
+  uploadedDate: string;
+  uploadedBy: string;
+  albumName: string;
+}
+
+// ---------------------------------------------------------------------------
+// Email integration (Outlook / Gmail)
+// ---------------------------------------------------------------------------
+
+/** An email pulled from a connected mailbox and attached to a project. */
+export interface ProjectEmail {
+  emailId: string;
+  subject: string;
+  fromAddress: string;
+  receivedDate: string;
+  bodySnippet: string;
+  isRead: boolean;
+  source: "gmail" | "outlook";
+}
+
+// ---------------------------------------------------------------------------
+// Compliance document management
+// ---------------------------------------------------------------------------
+
+export type ComplianceDocType =
+  | "certificate"
+  | "invoice"
+  | "compliance"
+  | "report"
+  | "warranty-cert";
+
+/** A previous revision of a compliance document. */
+export interface DocumentVersion {
+  version: string;
+  uploadedDate: string;
+  changeNote: string;
+}
+
+/** A compliance document, invoice, certificate, or report with version history. */
+export interface ComplianceDocument {
+  docId: string;
+  docTitle: string;
+  docType: ComplianceDocType;
+  uploadedDate: string;
+  version: string;
+  fileSizeKb: number;
+  uploadedBy: string;
+  versionHistory: DocumentVersion[];
+}
+
+// ---------------------------------------------------------------------------
+// Product warranties
+// ---------------------------------------------------------------------------
+
+/** Warranty record for a specific product or system installed on a project. */
+export interface WarrantyItem {
+  warrantyId: string;
+  productName: string;
+  supplierName: string;
+  modelNumber: string;
+  installationDate: string;
+  warrantyExpiryDate: string;
+  proofDocumentName: string;
+  notes: string;
+}
+
+// ---------------------------------------------------------------------------
+// H&S / Maintenance systems
+// ---------------------------------------------------------------------------
+
+export type MaintenanceSystemType =
+  | "fire-alarm"
+  | "bms"
+  | "emergency-lighting"
+  | "sprinkler-system"
+  | "ups"
+  | "generator"
+  | "access-control"
+  | "cctv"
+  | "hvac"
+  | "general-maintenance";
+
+/** A recommended service provider for a particular system. */
+export interface ServiceProvider {
+  providerId: string;
+  companyName: string;
+  contactName: string;
+  phoneNumber: string;
+  emailAddress: string;
+  specialisation: string;
+}
+
+/**
+ * A building/M&E system on a commercial project that has legal H&S obligations,
+ * a maintenance schedule, and recommended service providers.
+ */
+export interface MaintenanceSystem {
+  systemId: string;
+  systemType: MaintenanceSystemType;
+  systemDisplayName: string;
+  installationDate: string;
+  lastServiceDate: string;
+  commissioningCertificate: string | null;
+  systemDrawings: string[];
+  maintenanceFrequency: string;
+  nextServiceDueDate: string;
+  maintenanceNotes: string;
+  recommendedServiceProviders: ServiceProvider[];
+}
+
+// ---------------------------------------------------------------------------
+// Admin-level project data (aggregated for admin portal)
+// ---------------------------------------------------------------------------
+
+/** All admin-managed data attached to a single project. */
+export interface AdminProjectData {
+  projectId: string;
+  photos: ProjectPhoto[];
+  emails: ProjectEmail[];
+  complianceDocs: ComplianceDocument[];
+  warranties: WarrantyItem[];
+  maintenanceSystems: MaintenanceSystem[];
+}

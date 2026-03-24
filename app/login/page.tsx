@@ -44,6 +44,16 @@ export default function LoginPage() {
             ← Back to website
           </Link>
         </p>
+
+        <p className="mt-3 text-center text-xs text-zinc-700">
+          Staff?{" "}
+          <Link
+            href="/admin/login"
+            className="text-zinc-500 transition-colors hover:text-zinc-300"
+          >
+            Admin login →
+          </Link>
+        </p>
       </div>
     </div>
   );
