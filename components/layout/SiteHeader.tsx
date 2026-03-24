@@ -63,6 +63,12 @@ export function SiteHeader() {
 
         {/* CTA + mobile hamburger */}
         <div className="flex items-center gap-4">
+          <Link
+            href="/login"
+            className="hidden rounded-full border border-lime-400/40 px-4 py-2 text-sm font-semibold text-lime-400 transition-all hover:bg-lime-400/10 md:block"
+          >
+            Client Login
+          </Link>
           <a
             href="#contact"
             className="hidden rounded-full bg-lime-400 px-4 py-2 text-sm font-semibold text-zinc-900 transition-all hover:bg-lime-300 md:block"
@@ -134,6 +140,15 @@ export function SiteHeader() {
                 </a>
               </li>
             ))}
+            <li>
+              <Link
+                href="/login"
+                onClick={closeMobileNavigation}
+                className="mt-2 block rounded-full border border-lime-400/40 px-4 py-2 text-center text-sm font-semibold text-lime-400"
+              >
+                Client Login
+              </Link>
+            </li>
             <li>
               <a
                 href="#contact"
