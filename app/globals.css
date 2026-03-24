@@ -1,12 +1,25 @@
 @import "tailwindcss";
 
 :root {
-  --background: #0a0a0a;
-  --foreground: #ededed;
+  /* Pelham brand palette — matching pelham.co */
+  --pelham-gold:        #c9b97a;
+  --pelham-gold-dark:   #b0a060;
+  --pelham-gold-light:  #e8ddb0;
+  --pelham-charcoal:    #1a1a1a;
+  --pelham-mid:         #4a4a4a;
+  --pelham-warm-white:  #f7f5f0;
+  --pelham-off-white:   #f0ede6;
+  --pelham-border:      #e2ddd4;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --color-pelham-gold:       var(--pelham-gold);
+  --color-pelham-gold-dark:  var(--pelham-gold-dark);
+  --color-pelham-gold-light: var(--pelham-gold-light);
+  --color-pelham-charcoal:   var(--pelham-charcoal);
+  --color-pelham-mid:        var(--pelham-mid);
+  --color-pelham-warm-white: var(--pelham-warm-white);
+  --color-pelham-off-white:  var(--pelham-off-white);
+  --color-pelham-border:     var(--pelham-border);
+  --font-sans:               var(--font-lato);
 }
