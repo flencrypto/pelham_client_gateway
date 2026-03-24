@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
-import { Geist } from "next/font/google";
+import { Lato } from "next/font/google";
 import "./globals.css";
 
 /**
- * Geist Sans — the primary typeface for Pelham Client Gateway.
+ * Lato — Pelham Interiors' brand typeface, matching pelham.co.
  * Exposed as a CSS variable so Tailwind's `font-sans` utility can consume it.
  */
-const geistSansFont = Geist({
-  variable: "--font-geist-sans",
+const latoFont = Lato({
+  variable: "--font-lato",
+  weight: ["300", "400", "700", "900"],
   subsets: ["latin"],
   display: "swap",
 });
@@ -26,9 +27,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSansFont.variable} h-full antialiased`}
+      className={`${latoFont.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-zinc-950 text-white font-sans">
+      <body className="min-h-full flex flex-col font-sans">
         {children}
       </body>
     </html>
