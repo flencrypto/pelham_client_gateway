@@ -247,3 +247,43 @@ export interface AdminProjectData {
   warranties: WarrantyItem[];
   maintenanceSystems: MaintenanceSystem[];
 }
+
+// ---------------------------------------------------------------------------
+// Project schedule / Gantt types
+// ---------------------------------------------------------------------------
+
+/** Workflow status of a single schedule task. */
+export type TaskStatus = "in-progress" | "open" | "complete" | "on-hold";
+
+/** Visual health indicator shown on the left panel of the Gantt chart. */
+export type TaskHealthStatus =
+  | "at-risk"
+  | "critical"
+  | "healthy"
+  | "planned"
+  | "confirmed";
+
+/** Category of the schedule entry. */
+export type TaskType = "action" | "milestone" | "deliverable";
+
+/** A single row in the project Gantt / Horizon chart. */
+export interface ScheduleTask {
+  taskId: string;
+  title: string;
+  status: TaskStatus;
+  /** ISO 8601 date string (YYYY-MM-DD). */
+  startDate: string;
+  /** ISO 8601 date string (YYYY-MM-DD). */
+  endDate: string;
+  owner: string;
+  type: TaskType;
+  healthStatus: TaskHealthStatus;
+  /** 0–100 — percentage of work completed. */
+  completionPercent: number;
+}
+
+/** All schedule tasks for a single project. */
+export interface ProjectSchedule {
+  projectId: string;
+  tasks: ScheduleTask[];
+}
