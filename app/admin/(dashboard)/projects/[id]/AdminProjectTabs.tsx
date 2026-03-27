@@ -12,11 +12,14 @@ import type {
   ProjectPhoto,
   WarrantyItem,
 } from "@/types/pelham";
+import { GanttChart } from "@/components/GanttChart";
+import { getProjectSchedule } from "@/data/pelhamScheduleData";
 
-type TabId = "overview" | "photos" | "emails" | "compliance" | "warranties" | "maintenance";
+type TabId = "overview" | "schedule" | "photos" | "emails" | "compliance" | "warranties" | "maintenance";
 
 const TABS: { id: TabId; label: string }[] = [
   { id: "overview", label: "Overview" },
+  { id: "schedule", label: "Schedule" },
   { id: "photos", label: "Photos" },
   { id: "emails", label: "Emails" },
   { id: "compliance", label: "Compliance" },
@@ -84,6 +87,9 @@ export function AdminProjectTabs({ project, adminData }: AdminProjectTabsProps) 
 
       {/* Tab content */}
       {activeTab === "overview" && <OverviewTab project={project} />}
+      {activeTab === "schedule" && (
+        <ScheduleTab projectId={project.projectId} />
+      )}
       {activeTab === "photos" && (
         <PhotosTab photos={adminData.photos} projectId={project.projectId} />
       )}
@@ -97,6 +103,27 @@ export function AdminProjectTabs({ project, adminData }: AdminProjectTabsProps) 
       {activeTab === "maintenance" && (
         <MaintenanceTab systems={adminData.maintenanceSystems} />
       )}
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Schedule tab
+// ---------------------------------------------------------------------------
+
+function ScheduleTab({ projectId }: { projectId: string }) {
+  const schedule = getProjectSchedule(projectId);
+  return (
+    <div className="space-y-4">
+      <div>
+        <h2 className="text-xs font-semibold uppercase tracking-widest text-lime-400">
+          Horizon
+        </h2>
+        <p className="mt-1 text-sm text-zinc-400">
+          Project timeline — {schedule.tasks.length} schedule items.
+        </p>
+      </div>
+      <GanttChart tasks={schedule.tasks} />
     </div>
   );
 }
