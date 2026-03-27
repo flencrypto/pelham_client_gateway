@@ -22,12 +22,16 @@ const MILESTONES = [
 const MONTH_NAMES = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
   "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
+// Interpret date-only strings as UTC midnight to avoid local-time and DST issues.
 function parseDate(iso: string) {
-  return new Date(iso + "T00:00:00");
+  return new Date(iso + "T00:00:00Z");
 }
 
 function diffDays(a: Date, b: Date) {
-  return Math.round((b.getTime() - a.getTime()) / 86_400_000);
+  // Compute difference in whole UTC calendar days to avoid DST-related off-by-one errors.
+  const utcA = Date.UTC(a.getUTCFullYear(), a.getUTCMonth(), a.getUTCDate());
+  const utcB = Date.UTC(b.getUTCFullYear(), b.getUTCMonth(), b.getUTCDate());
+  return Math.round((utcB - utcA) / 86_400_000);
 }
 
 export function MilestonesScheduler() {
@@ -39,21 +43,18 @@ export function MilestonesScheduler() {
   // Timeline geometry
   const dates = useMemo(() => MILESTONES.map((m) => parseDate(m.targetDate)), []);
   const windowStart = useMemo(() => {
-    const d = new Date(dates[0]);
-    d.setDate(1);
-    return d;
+    const d = dates[0];
+    return new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), 1));
   }, [dates]);
   const windowEnd = useMemo(() => {
     const last = dates[dates.length - 1];
-    const d = new Date(last.getFullYear(), last.getMonth() + 1, 1);
-    return d;
+    return new Date(Date.UTC(last.getUTCFullYear(), last.getUTCMonth() + 1, 1));
   }, [dates]);
   const windowDays = diffDays(windowStart, windowEnd);
 
   const today = useMemo(() => {
-    const d = new Date();
-    d.setHours(0, 0, 0, 0);
-    return d;
+    const now = new Date();
+    return new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()));
   }, []);
   const todayPct = useMemo(() => {
     if (today < windowStart || today > windowEnd) return null;
@@ -63,14 +64,14 @@ export function MilestonesScheduler() {
   // Month headers
   const monthHeaders = useMemo(() => {
     const headers: { label: string; leftPct: number; widthPct: number }[] = [];
-    let cursor = new Date(windowStart);
+    let cursor = new Date(Date.UTC(windowStart.getUTCFullYear(), windowStart.getUTCMonth(), 1));
     while (cursor < windowEnd) {
-      const nextMonth = new Date(cursor.getFullYear(), cursor.getMonth() + 1, 1);
+      const nextMonth = new Date(Date.UTC(cursor.getUTCFullYear(), cursor.getUTCMonth() + 1, 1));
       const segEnd = nextMonth > windowEnd ? windowEnd : nextMonth;
       const leftPct = (diffDays(windowStart, cursor) / windowDays) * 100;
       const widthPct = (diffDays(cursor, segEnd) / windowDays) * 100;
       headers.push({
-        label: `${MONTH_NAMES[cursor.getMonth()]} '${String(cursor.getFullYear()).slice(2)}`,
+        label: `${MONTH_NAMES[cursor.getUTCMonth()]} '${String(cursor.getUTCFullYear()).slice(2)}`,
         leftPct,
         widthPct,
       });

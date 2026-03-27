@@ -120,7 +120,7 @@ function ScheduleTab({ projectId }: { projectId: string }) {
           Horizon
         </h2>
         <p className="mt-1 text-sm text-zinc-400">
-          Project timeline — {schedule.tasks.length} actions &amp; milestones.
+          Project timeline — {schedule.tasks.length} schedule items.
         </p>
       </div>
       <GanttChart tasks={schedule.tasks} />

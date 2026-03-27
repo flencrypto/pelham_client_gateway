@@ -7,24 +7,30 @@ import type { ScheduleTask, TaskHealthStatus, TaskStatus } from "@/types/pelham"
 // Helpers
 // ---------------------------------------------------------------------------
 
+// Interpret date-only strings as UTC midnight to avoid local-time and DST issues.
 function parseDate(iso: string): Date {
-  return new Date(iso + "T00:00:00");
+  return new Date(iso + "T00:00:00Z");
 }
 
 function addDays(date: Date, days: number): Date {
+  // Perform day arithmetic in UTC to keep calendar-day math consistent.
   const d = new Date(date);
-  d.setDate(d.getDate() + days);
+  d.setUTCDate(d.getUTCDate() + days);
   return d;
 }
 
 function addMonths(date: Date, months: number): Date {
+  // Perform month arithmetic in UTC to keep calendar-day math consistent.
   const d = new Date(date);
-  d.setMonth(d.getMonth() + months);
+  d.setUTCMonth(d.getUTCMonth() + months);
   return d;
 }
 
 function diffDays(a: Date, b: Date): number {
-  return Math.round((b.getTime() - a.getTime()) / 86_400_000);
+  // Compute difference in whole UTC calendar days to avoid DST-related off-by-one errors.
+  const utcA = Date.UTC(a.getUTCFullYear(), a.getUTCMonth(), a.getUTCDate());
+  const utcB = Date.UTC(b.getUTCFullYear(), b.getUTCMonth(), b.getUTCDate());
+  return Math.round((utcB - utcA) / 86_400_000);
 }
 
 const MONTH_NAMES = [
@@ -103,9 +109,9 @@ function HealthBadge({ health }: { health: TaskHealthStatus }) {
 
 export function GanttChart({ tasks }: GanttChartProps) {
   const today = useMemo(() => {
-    const d = new Date();
-    d.setHours(0, 0, 0, 0);
-    return d;
+    // UTC midnight so comparisons are consistent with parseDate UTC values.
+    const now = new Date();
+    return new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()));
   }, []);
 
   const [viewMode, setViewMode] = useState<ViewMode>("1yr");
@@ -128,7 +134,7 @@ export function GanttChart({ tasks }: GanttChartProps) {
   // Build month column headers
   const monthHeaders = useMemo(() => {
     const headers: { label: string; leftPct: number; widthPct: number }[] = [];
-    let cursor = new Date(windowStart.getFullYear(), windowStart.getMonth(), 1);
+    let cursor = new Date(Date.UTC(windowStart.getUTCFullYear(), windowStart.getUTCMonth(), 1));
     while (cursor < windowEnd) {
       const nextMonth = addMonths(cursor, 1);
       const segStart = cursor < windowStart ? windowStart : cursor;
@@ -137,7 +143,7 @@ export function GanttChart({ tasks }: GanttChartProps) {
       const widthPct = (diffDays(segStart, segEnd) / windowDays) * 100;
       if (widthPct > 0) {
         headers.push({
-          label: `${MONTH_NAMES[cursor.getMonth()]} '${String(cursor.getFullYear()).slice(2)}`,
+          label: `${MONTH_NAMES[cursor.getUTCMonth()]} '${String(cursor.getUTCFullYear()).slice(2)}`,
           leftPct,
           widthPct,
         });
@@ -161,11 +167,11 @@ export function GanttChart({ tasks }: GanttChartProps) {
     const clampedStart = start < windowStart ? windowStart : start;
     const clampedEnd = end > windowEnd ? windowEnd : end;
 
-    if (clampedStart >= windowEnd || clampedEnd <= windowStart) return null;
+    if (clampedStart > windowEnd || clampedEnd < windowStart) return null;
 
     const leftPct = (diffDays(windowStart, clampedStart) / windowDays) * 100;
-    const widthPct =
-      Math.max(0.3, diffDays(clampedStart, clampedEnd) / windowDays) * 100;
+    const durationPct = (diffDays(clampedStart, clampedEnd) / windowDays) * 100;
+    const widthPct = Math.max(0.3, durationPct);
 
     return { leftPct, widthPct };
   }
@@ -223,7 +229,7 @@ export function GanttChart({ tasks }: GanttChartProps) {
           onClick={() => setViewMode("1yr")}
           className="ml-1 rounded-md border border-amber-400/40 bg-amber-400/10 px-3 py-1 text-xs font-semibold text-amber-400 transition-all hover:bg-amber-400/20"
         >
-          Today
+          Reset
         </button>
       </div>
 
@@ -239,7 +245,7 @@ export function GanttChart({ tasks }: GanttChartProps) {
             {/* Header row */}
             <div className="flex h-10 items-center border-b border-white/10 px-3">
               <span className="text-[11px] font-semibold uppercase tracking-widest text-zinc-500">
-                Actions
+                Tasks
                 <span className="ml-1.5 rounded bg-zinc-800 px-1.5 py-0.5 text-[10px] text-zinc-400">
                   {tasks.length}
                 </span>
@@ -249,7 +255,6 @@ export function GanttChart({ tasks }: GanttChartProps) {
             {/* Task name rows */}
             {tasks.map((task) => {
               const st = STATUS_CONFIG[task.status];
-              const health = HEALTH_CONFIG[task.healthStatus];
               return (
                 <div
                   key={task.taskId}
@@ -445,9 +450,6 @@ export function GanttChart({ tasks }: GanttChartProps) {
                 </p>
               )}
             </div>
-            <p className="mt-2 text-[10px] text-zinc-600">
-              Double-click to open
-            </p>
           </div>
         )}
       </div>
