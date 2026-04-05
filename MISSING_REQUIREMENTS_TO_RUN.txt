@@ -6,7 +6,7 @@ Repository: pelham_client_gateway
 
 1) Missing API keys / env vars
 - None required for local lint/typecheck/build/start in current codebase.
-- No process.env references were found in app/components/lib/types.
+- No process.env references were found in the repo.
 
 2) Missing services/accounts/logins
 - No backend auth provider, database, or external API integration is wired in this repository.
