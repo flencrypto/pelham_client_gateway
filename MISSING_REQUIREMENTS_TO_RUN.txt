@@ -16,7 +16,7 @@ Repository: pelham_client_gateway
 - None required for static build and route rendering.
 
 4) Missing local tooling
-- Node.js + npm are required.
+- Node.js 20+ and npm are required (Tailwind tooling depends on Node.js >= 20).
 - Project does not define automated unit/integration/e2e test runners in package scripts.
 
 5) External-network-sensitive behavior
