@@ -1,18 +1,7 @@
 import type { Metadata } from "next";
-import { Lato } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
-/**
- * Lato — Pelham Interiors' brand typeface, matching pelham.co.
- * Exposed as a CSS variable so Tailwind's `font-sans` utility can consume it.
- */
-const latoFont = Lato({
-  variable: "--font-lato",
-  weight: ["300", "400", "700", "900"],
-  subsets: ["latin"],
-  display: "swap",
-});
 
 export const metadata: Metadata = {
   title: "Pelham Client Gateway",
@@ -26,10 +15,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={`${latoFont.variable} h-full antialiased`}
-    >
+    <html lang="en" className="h-full antialiased">
       <body className="min-h-full flex flex-col font-sans">
         {children}
         <Analytics />

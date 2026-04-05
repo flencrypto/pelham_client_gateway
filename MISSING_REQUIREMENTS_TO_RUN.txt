@@ -1,0 +1,27 @@
+MISSING_REQUIREMENTS_TO_RUN
+===========================
+
+Date checked: 2026-04-05 (UTC)
+Repository: pelham_client_gateway
+
+1) Missing API keys / env vars
+- None required for local lint/typecheck/build/start in current codebase.
+- No process.env references were found in app/components/lib/types.
+
+2) Missing services/accounts/logins
+- No backend auth provider, database, or external API integration is wired in this repository.
+- Login/admin flows are currently UI-only and do not require credentials to render.
+
+3) Missing databases/infrastructure
+- None required for static build and route rendering.
+
+4) Missing local tooling
+- Node.js + npm are required.
+- Project does not define automated unit/integration/e2e test runners in package scripts.
+
+5) External-network-sensitive behavior
+- App renders external image assets hosted on https://pelham.co and may rely on outbound network access at runtime for those assets.
+- @vercel/analytics is included; analytics collection behavior depends on deployment/runtime environment.
+
+6) Validation blockers encountered
+- No hard blockers remained after code fix.
